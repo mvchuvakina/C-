@@ -1,0 +1,209 @@
+#include <iostream>
+
+
+
+void print_chessboard(int chessboard[][8]) {
+	std::cout << "  1 2 3 4 5 6 7 8" << std::endl;
+	for (int i = 0; i < 8; i++) {
+		std::cout << i+1 << ' ';
+		for (int j = 0; j < 8; j++) {
+			std::cout << chessboard[i][j] << ' ';
+		}
+		std::cout << std::endl;
+	};
+	
+};
+
+void Pawn(int chessboard[][8], int n, int m) {
+	chessboard[n-1][m-1] = 2;
+	chessboard[n - 2][m - 1] = 1;
+	print_chessboard(chessboard);
+}
+
+void Rook(int chessboard[][8], int n, int m) {
+	
+	for (int i = 0; i < 8; i++) {
+		chessboard[i][m - 1] = 1;
+	}
+	for (int j = 0; j < 8; j++) {
+		chessboard[n-1][j] = 1;
+	}
+	chessboard[n - 1][m - 1] = 2;
+	print_chessboard(chessboard);
+}
+
+void Bishop(int chessboard[][8], int n, int m) {
+	int i;
+	i = n-1;
+	int j;
+	j = m-1;
+	while ((i < 7) && (j<7)) {
+		chessboard[i + 1][j + 1] = 1;
+		i++;
+		j++;
+	}
+	i = n - 1;
+	j = m - 1;
+	while ((i > 0) && (j > 0)) {
+		chessboard[i - 1][j -1 ] = 1;
+		i--;
+		j--;
+	}
+	i = n - 1;
+	j = m - 1;
+	while ((i > 0) && (j <  7)) {
+		chessboard[i - 1][j + 1] = 1;
+		i--;
+		j++;
+	}
+	i = n - 1;
+	j = m - 1;
+	while ((i < 7) && (j > 0)) {
+		chessboard[i + 1][j - 1] = 1;
+		i++;
+		j--;
+	}
+	chessboard[n - 1][m - 1] = 2;
+	print_chessboard(chessboard);
+}
+
+void Queen(int chessboard[][8], int n, int m) {
+	for (int i = 0; i < 8; i++) {
+		chessboard[i][m - 1] = 1;
+	}
+	for (int j = 0; j < 8; j++) {
+		chessboard[n - 1][j] = 1;
+	}
+	int i;
+	i = n - 1;
+	int j;
+	j = m - 1;
+	while ((i < 7) && (j < 7)) {
+		chessboard[i + 1][j + 1] = 1;
+		i++;
+		j++;
+	}
+	i = n - 1;
+	j = m - 1;
+	while ((i > 0) && (j > 0)) {
+		chessboard[i - 1][j - 1] = 1;
+		i--;
+		j--;
+	}
+	i = n - 1;
+	j = m - 1;
+	while ((i > 0) && (j < 7)) {
+		chessboard[i - 1][j + 1] = 1;
+		i--;
+		j++;
+	}
+	i = n - 1;
+	j = m - 1;
+	while ((i < 7) && (j > 0)) {
+		chessboard[i + 1][j - 1] = 1;
+		i++;
+		j--;
+	}
+	chessboard[n - 1][m - 1] = 2;
+	print_chessboard(chessboard);
+}
+
+void Knight(int chessboard[][8], int n, int m) {
+	chessboard[n - 1][m - 1] = 2;
+	if ((n - 3 >= 0) && (m <= 7)) {
+		chessboard[n - 3][m] = 1;
+	}
+	if ((n - 3 >= 0) && (m - 2 >= 0)) {
+		chessboard[n - 3][m-2] = 1;
+	}
+	if ((n - 2 >= 0) && (m - 3 >= 0)) {
+		chessboard[n - 2][m - 3] = 1;
+	}
+	if ((n - 2 >= 0) && (m + 1 <= 7)) {
+		chessboard[n - 2][m +1] = 1;
+	}
+	if ((n <= 7) && (m+1 <= 7)) {
+		chessboard[n][m+1] = 1;
+	}
+	if ((n <= 7) && (m -3 >= 0)) {
+		chessboard[n][m -3] = 1;
+	}
+	if ((n+1 <= 7) && (m - 2 >= 0)) {
+		chessboard[n+1][m - 2] = 1;
+	}
+	if ((n + 1 <= 7) && (m <=7)) {
+		chessboard[n + 1][m] = 1;
+	}
+	print_chessboard(chessboard);
+}
+
+void King(int chessboard[][8], int n, int m) {
+	chessboard[n - 1][m - 1] = 2;
+	if (n > 1) {
+		chessboard[n - 2][m - 1] = 1;
+		if (m > 1) {
+			chessboard[n - 2][m - 2] = 1;
+			chessboard[n - 1][m - 2] = 1;
+		
+		}
+		if (m < 8) {
+			chessboard[n - 2][m] = 1;
+			chessboard[n - 1][m] = 1;
+		}
+	}
+	if (m > 1) {
+		chessboard[n - 1][m - 2] = 1;
+	}
+	if (m < 8) {
+		chessboard[n - 1][m] = 1;
+	}
+	if (n <8) {
+			chessboard[n][m - 1] = 1;
+			if (m > 1) {
+				chessboard[n][m - 2] = 1;
+			if (m < 8) {
+				chessboard[n][m] = 1;
+			}
+		}
+			
+	}
+	print_chessboard(chessboard);
+}
+int main() {
+	setlocale(LC_ALL, "Russian");
+
+	int chessboard[8][8];
+	for (int i = 0; i < 8; i ++) {
+		for (int j = 0; j < 8; j++) {
+			chessboard[i][j] = 0;
+		}
+	}
+	int figure;
+	int x, y;
+
+	std::cout << "Введите фигуру: 1 - пешка, 2 - конь, 3 - слон, 4 - ферзь, 5 - ладья, 6 - король" << std::endl;
+	std::cin >> figure;
+	std::cout << "Введите координаты" << std::endl;
+	std::cout << "X" << std::endl;
+	std::cin >> x;
+	std::cout << "Y" << std::endl;
+	std::cin >> y;
+	
+		switch (figure) {
+		case(1): Pawn(chessboard, x, y);
+			break;
+		case(2): Knight(chessboard, x, y);
+			break;
+		case(3): Bishop(chessboard, x, y);
+			break;
+		case(4): Queen(chessboard, x, y);
+			break;
+		case(5): Rook(chessboard, x, y);
+			break;
+		case(6): King(chessboard, x, y);
+			break;
+		}
+
+	
+}
+
